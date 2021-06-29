@@ -1,0 +1,16 @@
+title SPA new note
+
+note over Browser: User enters data into form field and submits
+note over Browser: Default submit behaviour is replaced with custom request via eventHandler
+note over Browser: 
+New note is added to browser's list object 
+Display is rerendered to update display via redrawNotes()
+new note is sent to server via XHTTP request
+end note
+Browser->Server: XHTTP POST /exampleapp/new_note_spa
+Browser->Server: Set Request header: [content-type: application/json]
+Browser->Server: payload = notes JSON string
+Server->Browser: response: 201 and JSON object {"message": "note created"}
+note over Browser: 
+Event handler detects readyStateChange and logs response to console
+end note

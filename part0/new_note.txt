@@ -1,0 +1,15 @@
+title New Note sequence diagram
+note over Browser: user enters data into form and clicks submit button
+Browser->Server:HTTP POST https://studies.cs.helsinki.fi/exampleapp/newnote
+Server->Browser:HTTP REDIRECT 302 /exampleapp/notes
+Browser->Server:HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+Server->Browser: html code
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Server->Browser: css code
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+Server->Browser: js file
+note over Browser: JS is executed, event handler for parsing and displaying note data is set up, and request for JSON data is sent
+Server->Browser:HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+Browser->Server: JSON object with note data {content: "note", date: "2021-06-29T13:00:12.342Z"}
+note over Browser: Event handler is triggered and renders page to show note data
+

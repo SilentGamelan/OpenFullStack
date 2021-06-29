@@ -1,0 +1,28 @@
+title SinglePage note app
+
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+Server->Browser: response: Spa html file
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Server->Browser: response: main.css
+Browser->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+Server->Browser: response: spa.js file
+note over Browser: 
+JS is executed: 
+XHTML handler is registered, 
+redrawNotes renderer function defined, 
+default form submit function deactivated and custom submit function defined. 
+end note
+note over  Browser: JS requests note data from server
+Browser->Server: XHTTP GET /exampleapp/data.json
+Server->Browser: response 201: JSON note data
+note over Browser: 
+Event handler detects readyStateChange and completed transfer of JSON:
+Parses JSON and adds notes to notes[]
+triggers redrawNotes
+end note
+note over Browser:
+redrawNotes builds a new ul of notes and updates display:
+
+It copies the existing ul and appends updated data from received JSON, 
+then renders to screen by replacing the old ul element with the new ul element
+end note
