@@ -141,6 +141,7 @@ sumFirstTwoAndReturnRest(1, 2); // prints 3, returns []
 
 * props and their values can be "hard coded" strings or results of JavaScript expressions
   * if JavaScript expression, it must be wrapped with curly braces.
+  * props are **read-only** 
 * React component names must be capitalized
   * tag names are case sensitive - `<footer>` where component = Footer will create a blank footer element
 * React components typically need at least one *root element* (such as an enclosing `<div>`)
@@ -164,6 +165,35 @@ sumFirstTwoAndReturnRest(1, 2); // prints 3, returns []
     )
   }
   ```
+
+## [Lifting State Up](https://reactjs.org/docs/lifting-state-up.html)
+> Often, several components need to reflect the same changing data. We recommend lifting the shared state up to their closest common ancestor. 
+
+If separate components deal with shared states, then it is *not* a good idea to keep independent stores of the state values within each component.
+It is better to "lift the state" to the *closest common ancestor component* of all of the components that requre access to that state.
+
+We can describe this component that "owns" the shared state as being the *"source of truth"* for the child components in terms of this shared state.
+
+The example given in the above link uses a temperature calculator component.
+Rather than separate F and C components, each storing a temperature value, it uses a generic temperatureInput that accepts temperature, scale, and an appropriate onTemperatureChange handler reference, passed via props
+passed down by the Calculator component.
+
+The need to pass a handler reference is partly due to the fact that props are **read only**. In order for a sub-component to change the value of a controlled state owned by a parent component, it must call the owning component's setter method.
+
+Note that to make this work, the temperatureInput component must make use of `bind` and `e.target.value` to set the correct context for `this`
+
+                    -> constructor()
+temperatureInput    -> handleChange()
+                    -> render()
+
+                    -> constructor()
+calculator          -> handleCelciusChange(temperature)
+                    -> handleFarenheitChange(temperate)
+                    -> render()
+                      - scale
+                      - temperature
+                      - celsius
+                      - farenheit
 
 
 ### Functional Programming
