@@ -165,6 +165,11 @@ sumFirstTwoAndReturnRest(1, 2); // prints 3, returns []
     )
   }
   ```
+* **Don't** directly mutate states of react components
+  * ```
+  const [componentState, setComponentState] = useState([]);
+  setComponentState(componentState.concat("Yes Do This));
+  componentState.concat("Don't Do This);
 
 ## [Lifting State Up](https://reactjs.org/docs/lifting-state-up.html)
 > Often, several components need to reflect the same changing data. We recommend lifting the shared state up to their closest common ancestor. 
