@@ -42,6 +42,12 @@ const App = ()=> {
   const part3 = 'State of a component';
   const exercises3 = 14;
 
+  const t = [1,2,3];
+
+
+
+  console.log(t);
+
   return (
     <div>
       <Header headerText={course} />
