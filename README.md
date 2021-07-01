@@ -394,3 +394,20 @@ function variableHoisting(){
 * [You-Dont-Know-JS](https://github.com/getify/You-Dont-Know-JS)
 * [javascript.info](javascript.info)
 * [egghead.io](egghead.io)
+
+---
+
+# TODO
+- [] **[Read React Hooks API documentation](https://reactjs.org/docs/hooks-reference.htm)**
+  - [] Basic Hooks
+    - [] useState
+    - [] useEffect
+    - [] useContext
+  - Additional Hooks
+    - [] useReducer
+    - [] useCallback
+    - [] useMemo
+    - [] useRef
+    - [] useImperativeHandle
+    - [] useLayoutEffect
+    - [] useDebugValue
