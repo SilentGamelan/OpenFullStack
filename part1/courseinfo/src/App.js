@@ -1,5 +1,19 @@
 import React, {useState} from 'react'
 
+const Display = (props) => {
+  return (
+    <div>{props.counter}</div>
+  )
+};
+
+const Button = (props) => {
+  return (
+    <button onClick={props.handleClick}>
+      {props.text}
+    </button>
+  )
+};
+
 const App = ()=> {
   const [counter, setCounter] = useState(0);
 
@@ -7,16 +21,19 @@ const App = ()=> {
   const setToZero= ()=> setCounter(0);
   const decByOne = ()=> setCounter(counter-1);
     
+  const decText = "-";
+  const clearText = "CLEAR";
+  const incText = "+";
+
 
   return (
     <div>
-    <div>{counter}</div>
-    <button onClick={decByOne}>-1</button>
-    <button onClick={setToZero}>CLEAR</button>
-    <button onClick={incByOne}>+</button>
-
+    <Display counter={counter}/>
+    <Button handleClick={decByOne} text={decText} />
+    <Button handleClick={setToZero} text={clearText} />
+    <Button handleClick={incByOne} text={incText}/>
     </div>
   )
-}
+};
 
 export default App
