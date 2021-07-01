@@ -286,6 +286,54 @@ dave.greet();
 
 &nbsp;
 
+### Hoisting
+
+Hoisting occurs because function and variable declarations are read into memory during the compilation stage.
+This has the *effect* of "putting declarations at the top of code blocks" (whether global or functions), although not done in reality.
+
+Note that 
+**Only declarations are hoisted**
+If a var is declared and initalised on the *same or later* line, hoisting will not occur.
+However, if a hoistable var is initalised **above** its declaration, hoisting *will* occur.  
+
+Additionally `let` and `const` initialisation **cannot** be hoisted.
+
+```
+function hoisted() {
+    console.log(hoistedVar); // undefined
+    hoistedVar = "Whee";
+    console.log(hoistedVar); // "Whee"
+    var hoistedVar;
+}
+
+function notHoisted() {
+  console.log(notHoistedVar); // Syntax error
+  var notHoistedVar = "Nope";
+}
+
+```
+
+**Function Hoisting**
+```
+function hoisty() {
+    thisIsHoisted();
+    function thisIsHoisted() {
+        console.log("I'm Hoisted");
+    }
+}
+```
+
+**Variable Hoisting**
+```
+function variableHoisting(){
+   console.log(hoistMyVar(hoistedVar));
+    function hoistMyVar(whee) {
+        return "Hoisted!";
+    }
+    var hoistedVar;
+}
+```
+
 ---
 ### ECMAscript edition numbers vs modern naming:
 ---
