@@ -7,9 +7,18 @@ const Button = ({handleClick, buttonText} ) => {
   )
 }
 
-const Statistic = ({value, text}) => {
+const Statistic = ({value, text, percentage}) => {
+  if(percentage === true) percentage = "%";
+  
   return (
-    <div>{text} {value}</div>
+    <tr>
+      <td>
+        {text}
+      </td>
+      <td>
+        {value} {percentage}
+      </td>
+    </tr>
   )
 }
 
@@ -24,18 +33,20 @@ const Statistics = ({stats}) => {
     )
   } 
   
-  const average = (stats.good - stats.bad);
-  const positive = (stats.good / all);
+  const average = (stats.good - stats.bad) / all;
+  const positive = (stats.good / all) * 100;
 
   return(
-    <div>
-      <Statistic text="good" value={stats.good} />
-      <Statistic text="neutral" value={stats.neutral} />
-      <Statistic text="bad" value={stats.bad} />
-      <Statistic text="all" value={all} />
-      <Statistic text="average" value={average} />
-      <Statistic text="positive" value={positive} />
-    </div>
+    <table>
+      <tbody>
+        <Statistic text="good" value={stats.good} />
+        <Statistic text="neutral" value={stats.neutral} />
+        <Statistic text="bad" value={stats.bad} />
+        <Statistic text="all" value={all} />
+        <Statistic text="average" value={average} />
+        <Statistic text="positive" value={positive} percentage={true}/>
+      </tbody>
+    </table>
   )
 
 }
