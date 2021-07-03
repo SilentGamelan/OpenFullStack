@@ -166,10 +166,23 @@ sumFirstTwoAndReturnRest(1, 2); // prints 3, returns []
   }
   ```
 * **Don't** directly mutate states of react components
-  * ```
+```
   const [componentState, setComponentState] = useState([]);
   setComponentState(componentState.concat("Yes Do This));
   componentState.concat("Don't Do This);
+```
+* When you use console.log for debugging, **don't** combine objects in a Java-like fashion by using the *plus* operator. This will result is opaque messages if the variable is an object (`[Object object]`)
+```
+console.log('props value: ' + props) // DONT
+console.log('props value', props)    // OK
+```
+
+* Hook based state-functions **must not be called** from anywhere that isn't a __function body defining a component__
+  * `useState` or `useEffect` cannot be used inside:
+    * loops
+    * conditional statements
+    * functions that are not component definitions
+
 
 ## [Lifting State Up](https://reactjs.org/docs/lifting-state-up.html)
 > Often, several components need to reflect the same changing data. We recommend lifting the shared state up to their closest common ancestor. 
