@@ -136,6 +136,79 @@ sumFirstTwoAndReturnRest(1, 2); // prints 3, returns []
 
 ```
 
+### The Event Loop
+
+ keynote by Philip Roberts called [What the heck is the event loop anyway](https://www.youtube.com/watch?v=8aGhZQkoFbQ)
+* JS is a *single threaded, non-blocking, asyncronous, concurrent language*
+* JS has a 
+  *  callstack
+  *  event loop
+  *  callback queue
+
+V8 runtime
+Web APIs (DOM, ajax, setTimeout)
+heap, stack, execution contexts
+
+one thread == one call stack == one thing at a time
+
+blocking is where functions take excessive amount of time before resolving, typically involving synchronous calls - the **call stack** is blocked
+
+Asynchronous callbacks are an attempt to solve this problem
+
+Concurrency and the event loop
+
+* Concurrency in browser JS is acheived through threading that is handled via the **webAPIs** (c++ apis for node) and the task queue.
+  * The webAPIs are separate from the V8 engine, it is enhanced behaviour provided by the browser
+  * callback functions and their parameters are passed to the webapis
+    * Timers/Event handling is performed internally by the webAPI
+    * the webapi call is **not** placed onto the callstack, so this allows the function making the webapi call to resolve and itself be removed from the call stack
+    * When a webapi event is triggered (for example, the end of a timeout), the callback fuctions are *not* placed back onto the call stack, they go on the ***task queue***
+* The Event Loop is what coordinates the call stack and the task queue
+  * At each iteration of the event loop
+    * If the stack is empty, then it looks to the task queue
+      * If there is a task, this will be dequeued and pushed onto the call stack
+      * The call stack is then processed as normal, and the event loop ends 
+  
+ *  Sometimes people use setTimeOut(cs, 0) in order to defer the code until the stack is empty, rather than aiming for a specifici time delay
+    *  This is a method for changing methods to be non-blocking, as they are passed onto the webapis, and hence the task queue.
+    *   Also remember that for JS timed events, the time delay is a *minimum* delay time - it cannot guarantee execution time as the cb is placed onto the task queue after the delay.
+
+* Render queue vs callback queue
+  * Has higher priority than callback queue
+  * **is** blockable
+    * Renders cannot occur while the callstack is full
+    * This is one reason for being careful about how animation and actions tied to extremely common events (e.g. onscroll) are handled. We should always avoid blocking code, and try to avoid flooding the task queue with callbacks
+
+
+  ```
+  function foo() {
+    setTimeout(function cb() {
+      console.log('boo!');
+    }, 5000)
+  }
+  ```
+  | stack | webapi |
+  |-------|------- |
+  |       |        |
+  |foo()  |        |
+
+  | stack | webapi |
+  |---|---|
+  |setTimeout(cb, delay)| |
+  |foo() | |
+
+  | stack | webapi |
+  |---|---|
+  |foo() | setTimeout(cb, delay) |
+  | | |
+
+  | stack | webapi |
+  |---|---|
+  | |setTimeout(cb, delay) |
+  | | |
+
+
+
 
 ## React Notes
 
@@ -429,3 +502,4 @@ function variableHoisting(){
     - [] useImperativeHandle
     - [] useLayoutEffect
     - [] useDebugValue
+- [x] [What the heck is the event loop anyway](https://www.youtube.com/watch?v=8aGhZQkoFbQ)
